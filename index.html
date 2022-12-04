@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">  
+    <title>QR Code Generator</title>
+   
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./style.css">
+    <!-- CSS only -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+<!-- JavaScript Bundle with Popper -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
+
+    
+    
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <h1 style="text-align: center;">QR Code Generator</h1><br>
+        <p>Paste a url or enter text to create QR code</p>
+      </header>
+      <div class="form" style="width: 100%;">
+        <input type="text" spellcheck="false" placeholder="Enter text or url">
+       
+<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+  Generate QR
+</button>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Scan Me...</h5>
+      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" style="background-color: white;"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-lg" viewBox="0 0 16 16" style="margin-top: -10px;color:black;">
+        <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8 2.146 2.854Z"/>
+      </svg></button>
+      </div>
+    </div>
+      <div class="modal-body" style="background-color: white;border-radius: 10px;">
+        <div class="qr-code">
+          <img src="" alt="qr-code">
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+  </body>
+
+
+
+<script>
+
+const wrapper = document.querySelector(".wrapper"),
+qrInput = wrapper.querySelector(".form input"),
+generateBtn = wrapper.querySelector(".form button"),
+qrImg = wrapper.querySelector(".qr-code img");
+
+
+generateBtn.addEventListener("click", () => {
+    let qrValue = qrInput.value.trim();
+    if(qrValue=="") {
+        alert(`Enter the data`);
+        qrImg.src = `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=Paste a url or enter text to create QR code`;
+    qrImg.addEventListener("load", () => {
+        wrapper.classList.add("active");
+    });
+        
+      }
+    
+    else{
+    generateBtn.innerText = "Generating QR Code...";
+    qrImg.src = `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${qrValue}`;
+    qrImg.addEventListener("load", () => {
+        wrapper.classList.add("active");
+    });
+  }
+
+});
+
+qrInput.addEventListener("keyup", () => {
+    if(!qrInput.value.trim()) {
+        wrapper.classList.remove("active");
+        preValue = "";
+    }
+});
+
+</script>
+
+  
+</html>
